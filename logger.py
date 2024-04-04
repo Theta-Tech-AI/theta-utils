@@ -144,6 +144,9 @@ def setup_logger(log_level: str = "DEBUG"):
         "CRITICAL": logging.CRITICAL,
     }
 
+    if not log_level in log_level_mapping.values():
+        log_level = log_level_mapping.get(log_level.upper(), logging.DEBUG)
+
     for handler in logger.handlers[:]:
         if isinstance(handler, logging.StreamHandler):
             logger.removeHandler(handler)
@@ -155,4 +158,5 @@ def setup_logger(log_level: str = "DEBUG"):
     )
     handler.setFormatter(formatter)
     logger.addHandler(handler)
-    logger.setLevel(log_level_mapping.get(log_level.upper(), logging.DEBUG))
+        
+    logger.setLevel(log_level)

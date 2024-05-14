@@ -133,6 +133,10 @@ class CustomFormatter(logging.Formatter):
         return message
 
 
+def minimize_third_party_logs():
+    noisy_logs = ['matplotlib', 'numba', 'PIL', 'plotly']
+    [logging.getLogger(name).setLevel(logging.ERROR) for name in noisy_logs]
+
 def setup_logger(log_level: str = "DEBUG"):
     logger = logging.getLogger()
 
@@ -160,3 +164,4 @@ def setup_logger(log_level: str = "DEBUG"):
     logger.addHandler(handler)
         
     logger.setLevel(log_level)
+    minimize_third_party_logs()
